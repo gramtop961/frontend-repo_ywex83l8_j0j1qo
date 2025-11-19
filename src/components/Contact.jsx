@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 
 function Contact(){
   const [form, setForm] = useState({ name: '', phone: '', street_address: '', apartment: '', comment: '' })
@@ -19,15 +20,28 @@ function Contact(){
   }
 
   return (
-    <section id="contact" className="py-16">
+    <section id="contact" className="py-20">
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-8 items-start">
           <div>
-            <h2 className="text-3xl font-bold text-white mb-3">Подключить интернет</h2>
+            <motion.h2
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: .6 }}
+              className="text-3xl font-bold text-white mb-3"
+            >Подключить интернет</motion.h2>
             <p className="text-blue-100/90">Оставьте контакты — перезвоним, уточним адрес и согласуем время подключения.</p>
             <div className="mt-6 text-blue-200/80 text-sm">Работаем по всему городу Невинномысск и ближайшим районам.</div>
           </div>
-          <form onSubmit={submit} className="rounded-2xl p-5 border border-white/10 bg-white/5 backdrop-blur">
+          <motion.form
+            onSubmit={submit}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: .6 }}
+            className="rounded-2xl p-5 border border-white/10 bg-white/5 backdrop-blur"
+          >
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm text-blue-200 mb-1">Имя</label>
@@ -39,7 +53,7 @@ function Contact(){
               </div>
               <div className="sm:col-span-2">
                 <label className="block text-sm text-blue-200 mb-1">Адрес</label>
-                <input value={form.street_address} onChange={e=>setForm({...form,street_address:e.target.value})} className="w-full bg.white/10 bg-white/10 border border-white/10 rounded-lg px-3 py-2 text-white placeholder:text-blue-200/60" placeholder="Улица, дом"/>
+                <input value={form.street_address} onChange={e=>setForm({...form,street_address:e.target.value})} className="w-full bg-white/10 border border-white/10 rounded-lg px-3 py-2 text-white placeholder:text-blue-200/60" placeholder="Улица, дом"/>
               </div>
               <div>
                 <label className="block text-sm text-blue-200 mb-1">Квартира/Офис</label>
@@ -50,13 +64,13 @@ function Contact(){
                 <input value={form.comment} onChange={e=>setForm({...form,comment:e.target.value})} className="w-full bg-white/10 border border-white/10 rounded-lg px-3 py-2 text-white placeholder:text-blue-200/60" placeholder="Удобное время"/>
               </div>
             </div>
-            <button disabled={status.state==='loading'} className="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg transition">
+            <button disabled={status.state==='loading'} className="mt-4 w-full bg-gradient-to-r from-sky-500 to-indigo-500 hover:opacity-95 text-white font-semibold py-2 rounded-lg transition">
               {status.state==='loading' ? 'Отправка...' : 'Оставить заявку'}
             </button>
             {status.message && (
               <div className={`mt-3 text-sm ${status.state==='error' ? 'text-rose-300' : 'text-emerald-300'}`}>{status.message}</div>
             )}
-          </form>
+          </motion.form>
         </div>
       </div>
     </section>
